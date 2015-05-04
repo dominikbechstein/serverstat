@@ -1,0 +1,32 @@
+{
+    "name": "serverstat",
+    "version": "0.1.0",
+    "description": "show cpu load from your servers in a graph",
+    "main": "coffee index.js",
+    "scripts": {
+        "start": "coffee index.coffee",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dominikwinter/serverstat.git"
+    },
+    "author": "Dominik Winter <info@edge-project.org>",
+    "license": "MIT",
+    "keywords": [
+        "server",
+        "cpu",
+        "load",
+        "statistics",
+        "live",
+        "real time"
+    ],
+    "dependencies": {
+        "coffee-script": "*",
+        "express": "*",
+        "socket.io": "*",
+        "ssh2": "*",
+        "smoothie": "*",
+        "async": "*"
+    }
+}

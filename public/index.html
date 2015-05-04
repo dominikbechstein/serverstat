@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de">
+<head>
+    <meta http-equiv="X-UA-Compatible"  content="IE=EmulateIE8"/>
+    <meta http-equiv="Content-type"     content="text/html;charset=utf-8"/>
+    <meta http-equiv="Cache-control"    content="no-cache"/>
+    <meta http-equiv="Pragma"           content="no-cache"/>
+    <meta http-equiv="Expires"          content="0"/>
+
+    <title>ServerStats</title>
+
+    <style type="text/css">
+        * { margin: 0; padding: 0; }
+    </style>
+
+</head>
+<body>
+    <canvas id="chart"></canvas>
+
+    <script type="text/javascript" src="coffee-script.js"></script>
+    <script type="text/javascript" src="smoothie/smoothie.js"></script>
+    <script type="text/javascript" src="socket.io/socket.io.js"></script>
+    <script type="text/coffeescript">
+        do ->
+            chart = document.getElementById "chart"
+
+            # can not set via css
+            chart.setAttribute "width", 1000
+            chart.setAttribute "height", 400
+
+            smoothie = new SmoothieChart {
+                interpolation: "step"
+                delay: 3000
+                millisPerPixel: 1000
+                timestampFormatter: SmoothieChart.timeFormatter
+                grid:
+                    fillStyle: "#eee"
+                    strokeStyle: "#ddd"
+                    millisPerLine: 5000
+                    verticalSections: 6
+                    lineWidth: 0
+                labels: { fillStyle: "#666" }
+                horizontalLines: [
+                    {
+                        color: "rgba(200, 200, 0, .3)"
+                        lineWidth: 1
+                        value: .5
+                    }, {
+                        color: "rgba(255, 155, 0, .3)"
+                        lineWidth: 2
+                        value: 1
+                    }, {
+                        color: "rgba(255, 55, 0, .3)"
+                        lineWidth: 2
+                        value: 2
+                    }
+                ]
+            }
+
+            smoothie.streamTo chart
+
+            socket = io.connect "https://localhost:60000/"
+
+            lines = []
+
+            socket.on "init", (servers) ->
+                for server, id in servers
+                    smoothie.addTimeSeries lines[id] = new TimeSeries,
+                        lineWidth: 2
+                        strokeStyle: server.color
+
+            socket.on "update", (server) ->
+                lines[server.id].append new Date().getTime(), server.load
+    </script>
+</body>
+</html>
