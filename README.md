@@ -10,7 +10,7 @@ Type in your console:
 
 ```bash
 git clone git@github.com:dominikwinter/serverstat.git
-git serverstat
+cd serverstat
 npm install
 ```
 
