@@ -9,7 +9,7 @@ Watch your server's cpu load in a realtime graph.
 Type in your console:
 
 ```bash
-git clone https://github.com/dominikwinter/serverstat.git
+git clone git@github.com:dominikwinter/serverstat.git
 git serverstat
 npm install
 ```
