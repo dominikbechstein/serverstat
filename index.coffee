@@ -46,7 +46,7 @@ io = socket.listen server
 
 server.listen config.port
 
-console.info "listening on", config.port
+console.info "Type in your browser https://localhost:#{config.port}/\n\n"
 
 ServerStatus = (servers, io) ->
     slimServerSettings = []
