@@ -22,7 +22,7 @@ npm install
         openssl rsa -passin pass:x -in serverstat.pass.key -out serverstat.key
         openssl req -new -key serverstat.key -out serverstat.csr
         openssl x509 -req -days 365 -in serverstat.csr -signkey serverstat.key -out serverstat.crt
-2. Edit config.coffee file as desired
+2. Copy config.coffee.dist to config.coffee and edit as desired, e.g.
 
         # with ssh password
         {
@@ -45,7 +45,7 @@ npm install
 3. Type in your console:
 
         npm start
-4. Then type in your browser <https://localhost:60000/>
+4. Open your browser with <https://localhost:60000/>
 
 
 Please write bug reports and feature requests or do pull requests.
